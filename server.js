@@ -12,12 +12,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-//connecting to mongoDB server
-mongoose.connect(config.DBURL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+// //connecting to mongoDB server
+// mongoose.connect(config.DBURL,{ useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
-//initializing routes
-routes.initialize(app);
-
+// //initializing routes
+// routes.initialize(app);
+app.get("/",function(req,res){
+  res.send("Hello");
+})
 //Setting up port for listening
 let port = process.env.PORT;
 if (port == null || port == "") { port = 3000; }
