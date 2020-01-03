@@ -6,20 +6,22 @@ const app = express();
 const routes = require("./routes/routes.js");
 require('./models/database.js');
 const mongoose = require("mongoose");
-const config = require('./appConfig.js');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// //connecting to mongoDB server
-// mongoose.connect(config.DBURL,{ useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+//connecting to mongoDB server
+try{
+  mongoose.connect(process.env.DBURL,{ useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+}catch(err){
+  const config = require('./appConfig.js');
+  mongoose.connect(config.DBURL,{ useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+}
 
-// //initializing routes
-// routes.initialize(app);
-app.get("/",function(req,res){
-  res.send("Hello");
-})
+//initializing routes
+routes.initialize(app);
+
 //Setting up port for listening
 let port = process.env.PORT;
 if (port == null || port == "") { port = 3000; }
