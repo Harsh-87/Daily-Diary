@@ -6,13 +6,13 @@ exports.initialize = function (app) {
     });
 
     //compose new entry in Diary
-    app.post("/compose", control.composeEntry(req, res));
+    app.post("/compose", control.composeEntry);
 
     //home page to show Diary elements
-    app.get("/", control.getDiaryItems(req, res));
+    app.get("/", control.getDiaryItems);
 
     //route for custom entry of Diary
-    app.get("/post/:id", control.checkItem(req, res));
+    app.get("/post/:id", control.checkItem);
 
     //about 
     app.get("/about", function (req, res) {
